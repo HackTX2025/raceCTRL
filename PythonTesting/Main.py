@@ -14,7 +14,7 @@ FPS = 60
 SAMPLE_STEP = 0.5         # meters between dense samples
 ROAD_WIDTH = 6.0          # meters
 FORWARD_DISTANCE = 150.0  # max distance used elsewhere (meters)
-LOOKAHEAD_METERS = 30.0   # <-- show the road until this fixed distance ahead (meters)
+LOOKAHEAD_METERS = 75.0   # <-- show the road until this fixed distance ahead (meters)
 
 TURN_ANGLE_DEG = 10.0     # angle change threshold (still available, not used for lookahead)
 
@@ -22,13 +22,13 @@ CAMERA_HEIGHT = 0.8       # meters (eye height)
 MIN_Z = 0.1               # avoid division by zero
 
 # --- Field of view (horizontal) in degrees.
-FOV_DEG = 60.0
+FOV_DEG = 90.0
 
 # FOCAL will be computed (pixels) from FOV_DEG and SCREEN_W when the window is created.
 FOCAL = None
 
 # Where the horizon sits vertically (pixels). Will be set in main().
-VIEWPORT_HORIZON = int(SCREEN_H * 0.5)
+VIEWPORT_HORIZON = int(SCREEN_H * 0.4)
 
 # ---------- Utility functions ----------
 def dist(a, b):
@@ -110,38 +110,14 @@ def angle_between_deg(u, v):
     ang = math.degrees(math.atan2(cross, dot))
     return ang
 
-# Walk forward from start_idx along samples until reaching next "turn" or distance limit
-# (kept for compatibility; not used for fixed lookahead)
-def forward_until_turn(samples, start_idx, max_distance=FORWARD_DISTANCE, turn_angle=TURN_ANGLE_DEG):
-    n = len(samples)
-    res_indices = []
-    cum = 0.0
-    prev = samples[start_idx]
-    prev_tan = tangent_at(samples, start_idx)
-    for i in range(start_idx, n):
-        p = samples[i]
-        segd = dist(prev, p)
-        cum += segd
-        res_indices.append(i)
-        if cum >= max_distance:
-            break
-        # compute local tangent and angle to previous tangent
-        cur_tan = tangent_at(samples, i)
-        ang = abs(angle_between_deg(prev_tan, cur_tan))
-        if ang >= turn_angle and i > start_idx + 2:
-            # we've hit a turn
-            break
-        prev = p
-        prev_tan = cur_tan
-    return res_indices
-
 # NEW: Walk forward from start_idx along samples until total forward distance >= lookahead_m
 def forward_fixed_distance(samples, start_idx, lookahead_m=LOOKAHEAD_METERS):
     n = len(samples)
     res_indices = []
     cum = 0.0
     prev = samples[start_idx]
-    for i in range(start_idx, n):
+    for i in range(start_idx, int(start_idx + lookahead_m)):
+        i = i % n
         p = samples[i]
         segd = dist(prev, p)
         cum += segd
@@ -225,7 +201,7 @@ def make_example_track():
         pts.append((x, 0.0))
     # semicircle up
     cx, cy, r = 80, 20, 20
-    for t in range(0, 181, 10):
+    for t in range(-90, 90, 10):
         a = math.radians(t)
         pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
     # straight leftwards
@@ -233,9 +209,13 @@ def make_example_track():
         pts.append((x, 40.0))
     # semicircle down
     cx, cy, r = 0, 20, 20
-    for t in range(180, 361, 10):
+    for t in range(90, 270, 10):
         a = math.radians(t)
         pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+    pts2 = []
+    for p in pts:
+        pts2.append((round(p[0],1), round(p[1],1)))
+    print(pts2)
     return pts
 
 # ---------- Main program ----------
