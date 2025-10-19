@@ -1,194 +1,239 @@
+'use client'
+
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
-import { Badge } from './ui/badge';
+import { Activity, Satellite, Cloud, DollarSign, Zap, Github, Globe } from 'lucide-react';
 
 export const About: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <div className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-2xl">🌾</span>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div
+              className="w-12 h-12 border flex items-center justify-center"
+              style={{
+                backgroundColor: 'rgba(0, 255, 65, 0.1)',
+                borderColor: 'rgba(0, 255, 65, 0.5)'
+              }}
+            >
+              <Activity className="w-6 h-6" style={{ color: 'var(--accent-green)' }} />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900">AgriSight</h1>
+            <h1 className="text-4xl font-bold mono glow-green" style={{ color: 'var(--text-primary)' }}>
+              AgriSight
+            </h1>
           </div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl mono" style={{ color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>
             Empowering Farmers with Financial Foresight
           </p>
         </div>
 
         {/* Mission Statement */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-2xl">Our Mission</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              AgriSight bridges the gap between agricultural data and financial planning, 
-              helping farmers make informed decisions about their crops and finances. By 
-              combining satellite imagery, weather data, and financial insights, we provide 
-              actionable recommendations that help farmers optimize their operations and 
-              secure their financial future.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              Our platform translates complex agricultural data into simple, actionable 
-              financial guidance, making advanced farming technology accessible to farmers 
-              of all sizes.
-            </p>
-          </CardContent>
-        </Card>
+        <div
+          className="border p-6 mb-8"
+          style={{
+            backgroundColor: 'var(--bg-card)',
+            borderColor: 'var(--border-primary)'
+          }}
+        >
+          <h2 className="text-2xl font-bold mono mb-4 glow-green" style={{ color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
+            OUR MISSION
+          </h2>
+          <p className="mono mb-4" style={{ color: 'var(--text-secondary)', lineHeight: '1.6', fontSize: '0.95rem' }}>
+            AgriSight bridges the gap between agricultural data and financial planning, helping farmers make informed decisions
+            about their crops and finances. By combining satellite imagery, weather data, and financial insights, we provide
+            actionable recommendations that help farmers optimize their operations and secure their financial future.
+          </p>
+          <p className="mono" style={{ color: 'var(--text-secondary)', lineHeight: '1.6', fontSize: '0.95rem' }}>
+            Our platform translates complex agricultural data into simple, actionable financial guidance, making advanced farming
+            technology accessible to farmers of all sizes.
+          </p>
+        </div>
 
         {/* Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span className="text-2xl">🛰️</span>
-                <span>Satellite Monitoring</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">
-                Real-time NDVI analysis using NASA Sentinel-2 satellite data to monitor 
-                crop health and vegetation density across your fields.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span className="text-2xl">🌤️</span>
-                <span>Weather Intelligence</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">
-                7-day weather forecasts with rainfall analysis and drought risk assessment 
-                to help you plan irrigation and crop management.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span className="text-2xl">💰</span>
-                <span>Financial Integration</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">
-                Seamless integration with banking APIs to provide personalized financial 
-                recommendations based on your crop health and market conditions.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <span className="text-2xl">🤖</span>
-                <span>AI Recommendations</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">
-                Smart algorithms analyze your farm data to provide actionable insights 
-                on savings, loans, and resource allocation with confidence scores.
-              </p>
-            </CardContent>
-          </Card>
+          {[
+            {
+              icon: Satellite,
+              title: 'SATELLITE MONITORING',
+              description: 'Real-time NDVI analysis using NASA Sentinel-2 satellite data to monitor crop health and vegetation density across your fields.'
+            },
+            {
+              icon: Cloud,
+              title: 'WEATHER INTELLIGENCE',
+              description: '7-day weather forecasts with rainfall analysis and drought risk assessment to help you plan irrigation and crop management.'
+            },
+            {
+              icon: DollarSign,
+              title: 'FINANCIAL INTEGRATION',
+              description: 'Seamless integration with banking APIs to provide personalized financial recommendations based on your crop health and market conditions.'
+            },
+            {
+              icon: Zap,
+              title: 'AI RECOMMENDATIONS',
+              description: 'Smart algorithms analyze your farm data to provide actionable insights on savings, loans, and resource allocation with confidence scores.'
+            }
+          ].map((feature, idx) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={idx}
+                className="border p-4"
+                style={{
+                  backgroundColor: 'var(--bg-card)',
+                  borderColor: 'var(--border-primary)'
+                }}
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <Icon className="w-5 h-5" style={{ color: 'var(--accent-green)' }} />
+                  <h3 className="mono font-bold" style={{ fontSize: '0.813rem', letterSpacing: '0.1em', color: 'var(--text-primary)' }}>
+                    {feature.title}
+                  </h3>
+                </div>
+                <p className="mono" style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: '1.5' }}>
+                  {feature.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
 
         {/* Technology Stack */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-2xl">Technology Stack</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Frontend</h3>
+        <div
+          className="border p-6 mb-8"
+          style={{
+            backgroundColor: 'var(--bg-card)',
+            borderColor: 'var(--border-primary)'
+          }}
+        >
+          <h2 className="text-2xl font-bold mono mb-6 glow-green" style={{ color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
+            TECHNOLOGY STACK
+          </h2>
+          <div className="space-y-4">
+            {[
+              { label: 'FRONTEND', items: ['React 18', 'TypeScript', 'TailwindCSS', 'Leaflet.js'] },
+              { label: 'BACKEND', items: ['Node.js', 'Express', 'REST APIs', 'Next.js'] },
+              { label: 'DATA SOURCES', items: ['Sentinel-2 Satellite', 'OpenWeatherMap', 'Nessie API', 'Supabase'] }
+            ].map((section, idx) => (
+              <div key={idx}>
+                <h3 className="mono font-bold mb-2" style={{ fontSize: '0.813rem', letterSpacing: '0.1em', color: 'var(--accent-green)' }}>
+                  {section.label}
+                </h3>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">React 18</Badge>
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">TailwindCSS</Badge>
-                  <Badge variant="outline">Leaflet.js</Badge>
+                  {section.items.map((item, i) => (
+                    <div
+                      key={i}
+                      className="px-3 py-1 border mono text-xs"
+                      style={{
+                        backgroundColor: 'rgba(0, 255, 65, 0.05)',
+                        borderColor: 'rgba(0, 255, 65, 0.3)',
+                        color: 'var(--text-secondary)'
+                      }}
+                    >
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Backend</h3>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Node.js</Badge>
-                  <Badge variant="outline">Express</Badge>
-                  <Badge variant="outline">REST APIs</Badge>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Data Sources</h3>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Sentinel-2 Satellite</Badge>
-                  <Badge variant="outline">OpenWeatherMap</Badge>
-                  <Badge variant="outline">Nessie API</Badge>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            ))}
+          </div>
+        </div>
 
         {/* Team */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-2xl">Our Team</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="text-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Frontend Team</h3>
-                <div className="space-y-1">
-                  <p className="text-gray-700">Jeslyn - UI/UX Development</p>
-                  <p className="text-gray-700">Jace - React Components</p>
+        <div
+          className="border p-6 mb-8"
+          style={{
+            backgroundColor: 'var(--bg-card)',
+            borderColor: 'var(--border-primary)'
+          }}
+        >
+          <h2 className="text-2xl font-bold mono mb-6 glow-green" style={{ color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
+            OUR TEAM
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { title: 'FRONTEND TEAM', members: ['Jeslyn - UI/UX Development', 'Jace - React Components'] },
+              { title: 'BACKEND TEAM', members: ['Fellipe - NDVI Processing', 'Atharv - API Integration'] }
+            ].map((team, idx) => (
+              <div key={idx} className="text-center">
+                <h3 className="mono font-bold mb-3" style={{ fontSize: '0.813rem', letterSpacing: '0.1em', color: 'var(--accent-green)' }}>
+                  {team.title}
+                </h3>
+                <div className="space-y-2">
+                  {team.members.map((member, i) => (
+                    <p key={i} className="mono text-sm" style={{ color: 'var(--text-secondary)' }}>
+                      {member}
+                    </p>
+                  ))}
                 </div>
               </div>
-              <div className="text-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Backend Team</h3>
-                <div className="space-y-1">
-                  <p className="text-gray-700">Fellipe - NDVI Processing</p>
-                  <p className="text-gray-700">Atharv - API Integration</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            ))}
+          </div>
+        </div>
 
         {/* Hackathon Info */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">HackTX 2025</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <p className="text-gray-700">
-                AgriSight was developed during HackTX 2025, a 7-hour hackathon focused on 
-                creating innovative solutions for real-world problems. Our team of 4 developers 
-                built this platform to address the critical need for financial planning tools 
-                in agriculture.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge className="bg-blue-100 text-blue-800">Best Capital One Hack</Badge>
-                <Badge className="bg-green-100 text-green-800">Best Overall</Badge>
-                <Badge className="bg-purple-100 text-purple-800">Best Design</Badge>
+        <div
+          className="border p-6"
+          style={{
+            backgroundColor: 'var(--bg-card)',
+            borderColor: 'var(--border-primary)'
+          }}
+        >
+          <h2 className="text-2xl font-bold mono mb-4 glow-green" style={{ color: 'var(--text-primary)', letterSpacing: '0.05em' }}>
+            HACKTX 2025
+          </h2>
+          <p className="mono mb-4" style={{ color: 'var(--text-secondary)', lineHeight: '1.6', fontSize: '0.95rem' }}>
+            AgriSight was developed during HackTX 2025, a 7-hour hackathon focused on creating innovative solutions for real-world
+            problems. Our team of 4 developers built this platform to address the critical need for financial planning tools in
+            agriculture.
+          </p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {[
+              { label: 'Best Capital One Hack', color: '#00D9FF' },
+              { label: 'Best Overall', color: '#00FF41' },
+              { label: 'Best Design', color: '#FF6B35' }
+            ].map((badge, idx) => (
+              <div
+                key={idx}
+                className="px-3 py-1 border mono text-xs"
+                style={{
+                  backgroundColor: `${badge.color}10`,
+                  borderColor: `${badge.color}40`,
+                  color: badge.color
+                }}
+              >
+                {badge.label}
               </div>
-              <p className="text-sm text-gray-600">
-                Built with ❤️ for farmers and the agricultural community
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+            ))}
+          </div>
+          <p className="mono text-sm" style={{ color: 'var(--text-secondary)' }}>
+            Built with ❤️ for farmers and the agricultural community
+          </p>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer
+        className="border-t px-4 sm:px-6 lg:px-8 py-6 mt-8"
+        style={{
+          backgroundColor: 'var(--bg-card)',
+          borderColor: 'var(--border-primary)'
+        }}
+      >
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <div className="mono text-sm" style={{ color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>
+            © 2025 AgriSight. All rights reserved.
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="#" className="transition-colors" style={{ color: 'var(--text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-green)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <Github className="w-4 h-4" />
+            </a>
+            <a href="#" className="transition-colors" style={{ color: 'var(--text-secondary)' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-green)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <Globe className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

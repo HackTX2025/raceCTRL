@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
 import { About } from './components/About';
+import { System } from './components/System';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -13,9 +14,9 @@ function App() {
       case 'dashboard':
         return <Dashboard />;
       case 'insights':
-        return <Dashboard />;
-      case 'about':
         return <About />;
+      case 'about':
+        return <System />;
       default:
         return <Dashboard />;
     }
