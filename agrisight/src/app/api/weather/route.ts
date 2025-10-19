@@ -23,17 +23,17 @@ export async function GET(request: NextRequest) {
         )
         
         if (response.ok) {
-          const data = await response.json()
-          
+          const data = await response.json() as { daily: Array<{ dt: number; temp: { day: number }; weather: Array<{ main: string; icon: string }>; rain?: number }> }
+
           // Process the weather data
-          const forecast = data.daily.slice(0, 7).map((day: any) => ({
+          const forecast = data.daily.slice(0, 7).map((day) => ({
             date: new Date(day.dt * 1000).toISOString().split('T')[0],
             temp: Math.round(day.temp.day),
             weather: day.weather[0],
             rain: day.rain ? day.rain : 0
           }))
-          
-          const totalRain = forecast.reduce((sum: number, day: any) => sum + day.rain, 0)
+
+          const totalRain = forecast.reduce((sum: number, day) => sum + day.rain, 0)
           const deficit = totalRain - 30 // 30mm weekly average
           
           const weatherData = {

@@ -105,6 +105,16 @@ agrisight/
 └── README.md
 ```
 
+## 📚 Documentation
+
+For comprehensive documentation, see the main project documentation:
+
+- **[📋 Project Overview](../docs/project/overview.md)** - High-level project description
+- **[📖 Product Requirements](../docs/project/prd.md)** - Complete specifications
+- **[🛠️ Development Guide](../docs/development/guide.md)** - Development instructions
+- **[📊 Implementation Status](../docs/implementation/summary.md)** - Current progress
+- **[🎨 UI Integration Plan](../docs/development/ui-revamp-plan.md)** - Backend integration
+
 ## 🎯 API Endpoints
 
 ### GET /api/ndvi

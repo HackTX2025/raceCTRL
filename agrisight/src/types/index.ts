@@ -94,7 +94,7 @@ export interface CardProps {
 }
 
 export interface PanelProps {
-  data: any
+  data: NDVIData | WeatherData | FinancialData
   loading?: boolean
   error?: string
 }

@@ -6,6 +6,7 @@ import { CropHealthCard } from '@/components/panels/CropHealthCard'
 import { WeatherCard } from '@/components/panels/WeatherCard'
 import { FinancialCard } from '@/components/panels/FinancialCard'
 import { RecommendationBanner } from '@/components/panels/RecommendationBanner'
+import { ScenarioSwitcher } from '@/components/ScenarioSwitcher'
 import { NDVIData, WeatherData, FinancialData, Recommendation } from '@/types'
 import { mockNDVI, mockWeather, mockFinancial } from '@/lib/mockData'
 import { getRecommendation } from '@/lib/recommendationEngine'
@@ -61,6 +62,16 @@ export default function Dashboard() {
     }
   }
 
+  const handleScenarioChange = (data: {
+    ndvi: NDVIData
+    weather: WeatherData
+    financial: FinancialData
+  }) => {
+    setNdviData(data.ndvi)
+    setWeatherData(data.weather)
+    setFinancialData(data.financial)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -78,7 +89,7 @@ export default function Dashboard() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Farm Overview</h2>
-              <MapView farmId="demo1" />
+              <MapView farmId="demo1" ndviData={ndviData} />
             </div>
           </div>
 
@@ -114,53 +125,7 @@ export default function Dashboard() {
         </div>
 
         {/* Demo Scenarios */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Demo Scenarios</h2>
-          <p className="text-gray-600 mb-4">
-            Try different scenarios to see how AgriSight adapts its recommendations:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button 
-              className="p-4 border border-green-200 rounded-lg hover:bg-green-50 transition-colors text-left"
-              onClick={() => {
-                // This would trigger different mock data in a real implementation
-                console.log('Healthy farm scenario')
-              }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="font-semibold text-green-700">Healthy Farm</span>
-              </div>
-              <p className="text-sm text-gray-600">NDVI: 0.68, Good weather, Strong finances</p>
-            </button>
-            
-            <button 
-              className="p-4 border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-left"
-              onClick={() => {
-                console.log('Moderate stress scenario')
-              }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span className="font-semibold text-yellow-700">Moderate Stress</span>
-              </div>
-              <p className="text-sm text-gray-600">NDVI: 0.45, Low rainfall, Moderate finances</p>
-            </button>
-            
-            <button 
-              className="p-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors text-left"
-              onClick={() => {
-                console.log('Critical condition scenario')
-              }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span className="font-semibold text-red-700">Critical Condition</span>
-              </div>
-              <p className="text-sm text-gray-600">NDVI: 0.28, Drought, Low finances</p>
-            </button>
-          </div>
-        </div>
+        <ScenarioSwitcher onScenarioChange={handleScenarioChange} />
       </div>
     </div>
   )

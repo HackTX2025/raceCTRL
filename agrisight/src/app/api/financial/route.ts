@@ -21,18 +21,18 @@ export async function GET(request: NextRequest) {
         )
         
         if (accountResponse.ok) {
-          const accounts = await accountResponse.json()
+          const accounts = await accountResponse.json() as Array<{ _id: string; nickname?: string; balance: number }>
           const account = accounts[0] // Use first account for demo
-          
+
           if (account) {
             const transactionsResponse = await fetch(
               `http://api.nessieisreal.com/accounts/${account._id}/purchases?key=${nessieApiKey}`
             )
-            
-            let transactions = []
+
+            let transactions: Array<{ date: string; description: string; amount: number }> = []
             if (transactionsResponse.ok) {
-              const transactionsData = await transactionsResponse.json()
-              transactions = transactionsData.slice(0, 3).map((tx: any) => ({
+              const transactionsData = await transactionsResponse.json() as Array<{ transaction_date: string; description: string; amount: number }>
+              transactions = transactionsData.slice(0, 3).map((tx) => ({
                 date: tx.transaction_date,
                 description: tx.description,
                 amount: -tx.amount // Nessie returns positive amounts for purchases
