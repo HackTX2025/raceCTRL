@@ -1,6 +1,6 @@
 'use client'
 
-import { Card } from '@/components/ui/Card'
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card'
 import { Leaf, Clock } from 'lucide-react'
 import { NDVIData } from '@/types'
 import { getHealthStatus, getNDVIColor } from '@/lib/recommendationEngine'
@@ -14,14 +14,22 @@ interface CropHealthCardProps {
 export function CropHealthCard({ data, loading }: CropHealthCardProps) {
   if (loading) {
     return (
-      <Card title="Crop Health" icon={<Leaf className="h-5 w-5 text-green-600" />}>
-        <div className="space-y-4">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-20 mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded w-24 mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-16"></div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Leaf className="h-5 w-5 text-green-600" />
+            Crop Health
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-200 rounded w-20 mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-24 mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-16"></div>
+            </div>
           </div>
-        </div>
+        </CardContent>
       </Card>
     )
   }
@@ -30,8 +38,15 @@ export function CropHealthCard({ data, loading }: CropHealthCardProps) {
   const healthColor = getNDVIColor(data.ndvi)
 
   return (
-    <Card title="Crop Health" icon={<Leaf className="h-5 w-5 text-green-600" />}>
-      <div className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Leaf className="h-5 w-5 text-green-600" />
+          Crop Health
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
         {/* NDVI Score */}
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-600">NDVI Score</span>
@@ -75,7 +90,8 @@ export function CropHealthCard({ data, loading }: CropHealthCardProps) {
             Updated {getTimeAgo(data.timestamp)}
           </span>
         </div>
-      </div>
+        </div>
+      </CardContent>
     </Card>
   )
 }

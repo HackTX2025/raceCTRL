@@ -1,28 +1,319 @@
 @import "tailwindcss";
-@import "leaflet/dist/leaflet.css";
 
 :root {
-  --background: #F9FAFB;
-  --foreground: #111827;
-  --primary: #2563EB;
-  --success: #10B981;
-  --warning: #F59E0B;
-  --danger: #EF4444;
+  --font-size: 16px;
+
+  /* Dark Tech Theme */
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #121212;
+  --bg-elevated: #1A1A1A;
+  --bg-card: #0F0F0F;
+
+  /* Accent Colors - Neon/Tech */
+  --accent-green: #00FF41;
+  --accent-green-dim: #00CC33;
+  --accent-blue: #00D9FF;
+  --accent-blue-dim: #00A5CC;
+  --accent-orange: #FF6B35;
+  --accent-orange-dim: #CC5529;
+  --accent-purple: #9D4EDD;
+
+  /* Status Colors */
+  --status-active: #00FF41;
+  --status-warning: #FFB800;
+  --status-critical: #FF3864;
+  --status-info: #00D9FF;
+
+  /* Text Colors */
+  --text-primary: #E0E0E0;
+  --text-secondary: #A0A0A0;
+  --text-tertiary: #606060;
+  --text-dim: #404040;
+
+  /* Border & Lines */
+  --border-primary: #2A2A2A;
+  --border-accent: #00FF41;
+  --border-dim: #1A1A1A;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-danger: var(--danger);
-  --font-sans: 'Inter', var(--font-geist-sans), sans-serif;
-  --font-mono: 'JetBrains Mono', var(--font-geist-mono), monospace;
+@theme {
+  --color-background: #0A0A0A;
+  --color-foreground: #E0E0E0;
+  --color-card: #0F0F0F;
+  --color-card-foreground: #E0E0E0;
+  --color-popover: #121212;
+  --color-popover-foreground: #E0E0E0;
+  --color-primary: #00FF41;
+  --color-primary-foreground: #0A0A0A;
+  --color-secondary: #1A1A1A;
+  --color-secondary-foreground: #E0E0E0;
+  --color-muted: #1A1A1A;
+  --color-muted-foreground: #A0A0A0;
+  --color-accent: #2A2A2A;
+  --color-accent-foreground: #E0E0E0;
+  --color-destructive: #FF3864;
+  --color-destructive-foreground: #E0E0E0;
+  --color-border: #2A2A2A;
+  --color-input: transparent;
+  --color-input-background: #121212;
+  --color-ring: #00FF41;
+  --radius: 0.25rem;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+@layer base {
+  * {
+    border-color: theme(colors.border);
+  }
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  }
+  html {
+    font-size: var(--font-size);
+  }
+}
+
+/* Tech/Terminal Theme Utilities */
+.glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.glow-blue {
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.6), 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.glow-orange {
+  text-shadow: 0 0 10px rgba(255, 107, 53, 0.6), 0 0 20px rgba(255, 107, 53, 0.3);
+}
+
+.border-glow {
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.2), inset 0 0 10px rgba(0, 255, 65, 0.05);
+}
+
+.mono {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Grid Pattern Background */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Scanline Effect */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.3), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-dim);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--accent-green);
+  opacity: 0.5;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-green);
+  opacity: 0.8;
+}
+
+/* Custom AgriSight Styles */
+.agrisight-gradient {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.agrisight-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.agrisight-card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200;
+}
+
+.agrisight-button {
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.agrisight-input {
+  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid #f3f4f6;
+  border-top: 2px solid #10B981;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Status indicators */
+.status-healthy {
+  @apply bg-green-100 text-green-800 border-green-200;
+}
+
+.status-moderate {
+  @apply bg-yellow-100 text-yellow-800 border-yellow-200;
+}
+
+.status-critical {
+  @apply bg-red-100 text-red-800 border-red-200;
+}
+
+/* Map styles */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive grid utilities */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Text utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2;
+}
+
+/* Custom button variants */
+.btn-primary {
+  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+}
+
+.btn-secondary {
+  @apply bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500;
+}
+
+.btn-outline {
+  @apply border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-500;
 }
